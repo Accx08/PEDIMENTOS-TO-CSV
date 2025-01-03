@@ -14,19 +14,20 @@ def parse_xml(file_path):
         general_data = {
             "Pedimento": at001_row.findtext("C001NUMPED"),
             "Aduana": at001_row.findtext("C001ADUSEC"),
-            "T Operacion": at001_row.findtext("C001TIPOPE"),
             "CVE.Pedimento": at001_row.findtext("C001CVEDOC"),
-            "regimen": at001_row.findtext("C001TIPREG"),
+            "T.Operacion": at001_row.findtext("C001TIPREG"),
             "TC": tipo_cambio,
             "valor_dolares": at001_row.findtext("F001VALDOL"),
             "valor_aduana": at001_row.findtext("N001VALADU"),
-            "precio_pagado": at001_row.findtext("N001VALCOM"),
+            "zcnPrecioComercial": at001_row.findtext("N001VALCOM"),
             "Patente": at001_row.findtext("C001PATEN"),
             "val_seguro": get_float(at001_row, "F001VALSEG") * tipo_cambio,
             "seguro": get_float(at001_row, "F001SEGURO") * tipo_cambio,
             "Flete aerero": get_float(at001_row, "F001FLETES") * tipo_cambio,
             "embalaje": get_float(at001_row, "F001EMBALA") * tipo_cambio,
             "O.Incrementales": get_float(at001_row, "F001OTRINC") * tipo_cambio,
+            "PRV": 290,
+            "PRV iva": 290*0.16,
         }
         data["general"].append(general_data)
 
