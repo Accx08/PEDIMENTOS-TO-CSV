@@ -73,9 +73,6 @@ def parse_xml(file_path):
 #Importar solo los elementos generales:
 
 """
-import xml.etree.ElementTree as ET
-from datetime import datetime
-
 def parse_xml(file_path):
     tree = ET.parse(file_path)
     root = tree.getroot()

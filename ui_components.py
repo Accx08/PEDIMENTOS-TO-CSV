@@ -100,15 +100,8 @@ def iniciar_aplicacion():
 
     ventana.mainloop()
 
+#Exportar solo elementos generales: 
 """
-import os
-import csv
-import tkinter as tk
-from tkinter import filedialog, messagebox
-import customtkinter as ctk
-from config import FONT_TITLE, FONT_LABEL, FONT_ENTRY, BUTTON_PADDING, FRAME_PADDING
-from xml_parser import parse_xml
-
 def iniciar_aplicacion():
     ctk.set_appearance_mode("light")
     ctk.set_default_color_theme("blue")
