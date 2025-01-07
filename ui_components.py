@@ -1,6 +1,5 @@
 import os
 import csv
-import tkinter as tk
 from tkinter import filedialog, messagebox
 import customtkinter as ctk
 from config import FONT_TITLE, FONT_LABEL, FONT_ENTRY, BUTTON_PADDING, FRAME_PADDING
@@ -9,8 +8,8 @@ from xml_parser import parse_xml
 def iniciar_aplicacion():
     ctk.set_appearance_mode("light")
     ctk.set_default_color_theme("blue")
-
-    ventana = ctk.CTk()
+    
+    ventana = ctk.CTk()    
     ventana.title("XML to CSV Converter")
     ventana.geometry("1000x800")
 
@@ -30,7 +29,7 @@ def iniciar_aplicacion():
         output_folder = output_path.get()
 
         if not input_folder or not output_folder:
-            messagebox.showerror("Error", "Please select both input and output folders")
+            messagebox.showerror("Error", "Seleccione ambas carpetas de entrada y salida")
             return
 
         results_textbox.delete("1.0", "end")
@@ -67,9 +66,9 @@ def iniciar_aplicacion():
                 results_textbox.insert("end", f"  General CSV: {general_csv}\n")
                 results_textbox.insert("end", f"  Product CSV: {product_csv}\n\n")
 
-            messagebox.showinfo("Success", "All files processed successfully!")
+            messagebox.showinfo("Success", "Proceso terminado correctamente!")
         except Exception as e:
-            messagebox.showerror("Error", f"An error occurred: {str(e)}")
+            messagebox.showerror("Error", f"Ha ocurrido un error: {str(e)}")
 
     def clear_all():
         input_path.set("")
