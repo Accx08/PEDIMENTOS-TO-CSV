@@ -1,5 +1,6 @@
 import os
 import csv
+import tkinter as tk
 from tkinter import filedialog, messagebox
 import customtkinter as ctk
 from config import FONT_TITLE, FONT_LABEL, FONT_ENTRY, BUTTON_PADDING, FRAME_PADDING
@@ -17,28 +18,31 @@ def iniciar_aplicacion():
     output_path = ctk.StringVar()
 
     def select_input_folder():
-        folder = filedialog.askdirectory(title="Select XML files folder")
-        input_path.set(folder)
+        files = filedialog.askopenfilenames(
+            title="Select XML files",
+            filetypes=[("XML files", "*.xml")]
+        )
+        if files:
+            input_path.set(";".join(files))  # Store multiple file paths separated by semicolon
 
     def select_output_folder():
         folder = filedialog.askdirectory(title="Select output folder")
         output_path.set(folder)
 
     def process_files():
-        input_folder = input_path.get()
+        input_files = input_path.get().split(";")  # Split the paths back into a list
         output_folder = output_path.get()
 
-        if not input_folder or not output_folder:
-            messagebox.showerror("Error", "Seleccione ambas carpetas de entrada y salida")
+        if not input_files or not output_folder:
+            messagebox.showerror("Error", "Seleccione archivos XML y carpeta de salida")
             return
 
         results_textbox.delete("1.0", "end")
         try:
-            for xml_file in os.listdir(input_folder):
-                if not xml_file.endswith('.xml'):
+            for file_path in input_files:
+                if not file_path.endswith('.xml'):
                     continue
 
-                file_path = os.path.join(input_folder, xml_file)
                 data = parse_xml(file_path)
 
                 if not data["general"]:
@@ -62,7 +66,7 @@ def iniciar_aplicacion():
                     writer.writeheader()
                     writer.writerows(data["productos"])
 
-                results_textbox.insert("end", f"Processed: {xml_file}\n")
+                results_textbox.insert("end", f"Processed: {file_path}\n")
                 results_textbox.insert("end", f"  General CSV: {general_csv}\n")
                 results_textbox.insert("end", f"  Product CSV: {product_csv}\n\n")
 

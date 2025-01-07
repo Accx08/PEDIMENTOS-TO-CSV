@@ -47,8 +47,7 @@ def parse_xml(file_path):
         data["general"].append(general_data)
 
     for at016_row in root.findall(".//at016/row"):
-        at019_provider = root.findall(".//at019/row")
-        provider = at019_provider.findtext("C019IDE2CAS")
+        
         product = {
             "Pedimento": at016_row.findtext("C016NUMPED"),
             "descripcion"       : at016_row.findtext("C016DESMER")  ,
@@ -61,9 +60,9 @@ def parse_xml(file_path):
             "valor_dolares"     : get_float(at016_row, "F016VALDOL"),
             "precio_unitario"   : get_float(at016_row, "F016PREUNI"),
             "valor_aduana"      : get_float(at016_row, "N016VALADU"),
-            "iva_producto"      : get_float(at016_row, "N016VALADU")    *   get_float(at016_row, "F016TASIVA")/100,
+            "iva_producto"      : get_float(at016_row, "N016VALADU")*get_float(at016_row, "F016TASIVA")/100,
             "igi"               : get_float(at016_row, "N016MONIGI"),
-            "prov"              : provider                          ,
+            "prov"              : root.findtext("C019IDE2CAS"),
        }
         data["productos"].append(product)
 
